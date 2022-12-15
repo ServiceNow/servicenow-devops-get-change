@@ -64,18 +64,16 @@ The values for secrets should be setup in Step 1. Secrets should be created in S
 
 ### `change-details`
 
-The change details to be used for identifying change request in ServiceNow instance. The change details is a JSON object surrounded by curly braces _{}_ containing key-value pair separated by a comma _,_. A key-value pair consists of a key and a value separated by a colon _:_. The keys supported in key-value pair are *build_number*, *pipeline_name*, *description*, *stage_name*
-
-### `interval`
-
-The time in seconds to wait between trying the API. The default value is 100 seconds.
-
-### `timeout`
-
-The max. time in seconds to wait until the action should fail. The default value is 3600 seconds.
-
+The change details to be used for identifying change request in ServiceNow instance. The change details is a JSON object surrounded by curly braces _{}_ containing key-value pair separated by a comma _,_. A key-value pair consists of a key and a value separated by a colon _:_. The keys supported in key-value pair are *build_number*, *pipeline_name*, *stage_name*
 ## Outputs
-No outputs produced.
+
+### `change-request-number` 
+
+*Change Request Number* found for the given change details
+
+### `status`
+
+To know the status of the Change Request GET.
 
 # Notices
 
