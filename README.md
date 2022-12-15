@@ -1,6 +1,6 @@
 # ServiceNow DevOps Get Change Github Action
 
-This custom action needs to be added at step level in a job to create change in ServiceNow instance.
+This custom action needs to be added at step level in a job to get change-request-number from ServiceNow instance with provided change-details to identify the change-request.
 
 # Usage
 ## Step 1: Prepare values for setting up your secrets for Actions
@@ -27,8 +27,8 @@ deploy:
     needs: <upstream job>
     runs-on: ubuntu-latest
     steps:     
-      - name: ServiceNow Change
-        uses: ServiceNow/servicenow-devops-change@v1.34.2
+      - name: ServiceNow Get Change
+        uses: ServiceNow/servicenow-devops-get-change@v1.38
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}

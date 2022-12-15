@@ -1,22 +1,22 @@
 {
-  "name": "custom-action-get",
+  "name": "servicenow-devops-get-change",
   "version": "1.0.0",
-  "description": "",
+  "description": "This custom action needs to be added at step level in a job to get change-request-number from ServiceNow instance with provided change-details to identify the change-request.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/surya-konduru-sn/custom-action-get.git"
+    "url": "git+https://github.com/ServiceNow/servicenow-devops-get-change.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/surya-konduru-sn/custom-action-get/issues"
+    "url": "https://github.com/ServiceNow/servicenow-devops-get-change/issues"
   },
-  "homepage": "https://github.com/surya-konduru-sn/custom-action-get#readme",
+  "homepage": "https://github.com/ServiceNow/servicenow-devops-get-change#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
     "axios": "^1.2.1"
