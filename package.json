@@ -4,7 +4,7 @@
   "description": "This custom action needs to be added at step level in a job to get change-request-number from ServiceNow instance with provided change-details to identify the change-request.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "ncc build src/main.js"
   },
   "repository": {
     "type": "git",

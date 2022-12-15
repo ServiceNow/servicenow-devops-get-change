@@ -9057,9 +9057,12 @@ const main = async() => {
 
         let buildNumber = changeDetails.build_number;
         let pipelineName = changeDetails.pipeline_name;
-        let stageName = changeDetails.stage_name;        
+        let stageName = changeDetails.stage_name;
+        
+        //Checking if any input values are empty and defaulting to the current Stage, Pipeline Name, Build Number
+        
         if(buildNumber == null || buildNumber == '')
-            buildNumber = `${githubContext.run_id}`;
+            buildNumber = `${githubContext.run_id}`+'/attempts/'+`${githubContext.run_attempt}`;
         if(pipelineName == null || pipelineName == '')
             pipelineName = `${githubContext.repository}` + '/' + `${githubContext.workflow}`;
         if(stageName == null || stageName == '')
@@ -9082,6 +9085,7 @@ const main = async() => {
             };
             let httpHeaders = { headers: defaultHeaders };
             response = await axios.get(restendpoint, httpHeaders);
+
             if(response.data && response.data.result){
                 status = "SUCCESS";
                 console.log("change-request-number => "+response.data.result.number);
@@ -9090,6 +9094,7 @@ const main = async() => {
                 status = "NOT SUCCESSFUL";
                 console.error('No response from ServiceNow. Please check ServiceNow logs for more details.');
             }
+            
         } catch (err) {
             status = "NOT SUCCESSFUL";
             if (!err.response) {
