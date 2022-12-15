@@ -17,7 +17,7 @@ inputs:
     description: 'Github Context'
     required: true
   change-details:
-    description: 'The customized inputs to create change with the requested details.'
+    description: 'The inputs to identify change at Servicenow and GET it.'
     required: true        
 outputs:
   change-request-number: 
