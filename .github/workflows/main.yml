@@ -1,0 +1,76 @@
+name: CustomActionUpdateWorkflow
+on: 
+  workflow_dispatch:
+
+jobs:
+  
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest  
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
+
+#       - name: Set Node.js 12.x
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: 12.x
+
+#       - name: Install dependencies
+#         run: npm ci
+
+#       - name: Compile
+#         run: npm run build
+
+  test-get-job-name:
+    runs-on: ubuntu-latest
+    name: A Job to Update Change
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test Get Job
+        uses: ./ # Uses an action in the root directory
+        id: update
+        with:
+          devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+          devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          context-github: ${{ toJSON(github) }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          change-details: '{"build_number":"21","pipeline_name":"CI_Pipeline","stage_name":"Create_Change"}' #Working Version
+          #change-request-details: '{"state":"3","close_code":"successful", "close_notes":"Closing during Github Actions CustomActionUpdate","short_description": "Test description in Updated by Github custom Action","description":"Automated Software Deployment."}'
+#       Use the output from the `hello` step
+      - name: Output of update
+        run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
+      # - name: Custom Action Update Step
+      #   uses: ./ # Uses an action in the root directory
+      #   id: update_empty_cr
+      #   with:
+      #     #change-request-number: 'CHG0030012' # Closed CR
+      #     change-request-number: '' # Active CR
+      #     devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+      #     devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+      #     instance-url: ${{ secrets.SN_INSTANCE_URL }}
+      #     context-github: ${{ toJSON(github) }}
+      #     change-request-details: '{ "short_description": "Test description in Updated by Github custom Action - 123","description":"123 - Automated Software Deployment.","work_notes":"Updated by Github Action Custom Update -123"}' #Working Version
+      #     #change-request-details: '{"state":"3","close_code":"successful", "close_notes":"Closing during Github Actions CustomActionUpdate","short_description": "Test description in Updated by Github custom Action","description":"Automated Software Deployment."}'
+      # # Use the output from the `hello` step
+      # - name: Output of update_empty_cr
+      #   run: echo "The Status of Update Change Request Details => ${{ steps.update_empty_cr.outputs.status }}"        
+      # - name: Custom Action Update Step
+      #   uses: ./ # Uses an action in the root directory
+      #   id: close_closed_cr
+      #   with:
+      #     change-request-number: 'CHG0030012' # Closed CR
+      #     devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+      #     devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+      #     instance-url: ${{ secrets.SN_INSTANCE_URL }}
+      #     context-github: ${{ toJSON(github) }}
+      #     change-request-details: '{ "short_description": "Test description in Updated by Github custom Action - 123","description":"123 - Automated Software Deployment.","work_notes":"Updated by Github Action Custom Update -123"}' #Working Version
+      #     #change-request-details: '{"state":"3","close_code":"successful", "close_notes":"Closing during Github Actions CustomActionUpdate","short_description": "Test description in Updated by Github custom Action","description":"Automated Software Deployment."}'
+      # # Use the output from the `hello` step
+      # - name: Output of close_closed_cr
+      #   run: echo "The Status of Update Change Request Details => ${{ steps.close_closed_cr.outputs.status }}"          
+        

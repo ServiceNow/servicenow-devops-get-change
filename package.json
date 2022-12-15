@@ -1,0 +1,24 @@
+{
+  "name": "custom-action-get",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surya-konduru-sn/custom-action-get.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/surya-konduru-sn/custom-action-get/issues"
+  },
+  "homepage": "https://github.com/surya-konduru-sn/custom-action-get#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "axios": "^1.2.1"
+  }
+}
