@@ -23,22 +23,24 @@ jobs:
 
     - name: Compile
       run: npm run build
+      
   GetChangeDetails:
+    needs: build
     runs-on: ubuntu-latest
     name: Servicenow Get Change Details
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test Get Job
+      - name: Servicenow Get Change Details
         uses: ./ 
-        id: update
+        id: get
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           context-github: ${{ toJSON(github) }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-          change-details: '{"build_number":"21","pipeline_name":"CI_Pipeline","stage_name":"Create_Change"}'
-      - name: Output of update
-        run: echo "The Status of Update Change Request Details => ${{ steps.update.outputs.change-request-number }}"
+          change-details: '{"pipeline_name":"maheshganji/custom-action-get/CustomActionGetWorkflow","stage_name":"ServiceNow Change Approval","build_number":"3732116819/attempts/1"}'
+      - name: Output of GetChangeDetails
+        run: echo "The Status of Update Change Request Details => ${{ steps.get.outputs.change-request-number }}"

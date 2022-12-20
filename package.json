@@ -2,7 +2,7 @@
   "name": "servicenow-devops-get-change",
   "version": "1.0.0",
   "description": "This custom action needs to be added at step level in a job to get change-request-number from ServiceNow instance with provided change-details to identify the change-request.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "ncc build src/main.js"
   },
@@ -10,8 +10,12 @@
     "type": "git",
     "url": "git+https://github.com/ServiceNow/servicenow-devops-get-change.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "devops",
+    "servicenow",
+    "change"
+  ],
+  "author": "ServiceNow",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ServiceNow/servicenow-devops-get-change/issues"

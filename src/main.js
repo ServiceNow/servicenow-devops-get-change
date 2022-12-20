@@ -17,6 +17,25 @@ const main = async() => {
         console.log('Calling Get Change Info API to get changeRequestNumber'); 
     
         let changeDetails;
+
+
+
+        if(instanceUrl == ""){
+            console.error("Please Provide a valid 'Instance Url' to proceed with Update Change Request"); 
+            return;
+        }
+        if(passwd == ""){
+            console.error("Please Provide a valid 'Password' to proceed with Update Change Request"); 
+            return;
+        }
+        if(username == ""){
+            console.error("Please Provide a valid 'User Name' to proceed with Update Change Request"); 
+            return;
+        }
+        if(toolId == ""){
+            console.error("Please Provide a valid 'Tool ID' to proceed with Update Change Request"); 
+            return;
+        }
     
         try {
           changeDetails = JSON.parse(changeDetailsStr);
