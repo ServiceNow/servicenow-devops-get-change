@@ -1,6 +1,6 @@
 # ServiceNow DevOps Get Change Github Action
 
-This custom action needs to be added at step level in a job to create change in ServiceNow instance.
+This custom action needs to be added at step level in a job to get change-request-number from ServiceNow instance with provided change-details to identify the change-request.
 
 # Usage
 ## Step 1: Prepare values for setting up your secrets for Actions
@@ -27,8 +27,8 @@ deploy:
     needs: <upstream job>
     runs-on: ubuntu-latest
     steps:     
-      - name: ServiceNow Change
-        uses: ServiceNow/servicenow-devops-change@v1.34.2
+      - name: ServiceNow Get Change
+        uses: ServiceNow/servicenow-devops-get-change@v1.38
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
@@ -64,18 +64,17 @@ The values for secrets should be setup in Step 1. Secrets should be created in S
 
 ### `change-details`
 
-The change details to be used for identifying change request in ServiceNow instance. The change details is a JSON object surrounded by curly braces _{}_ containing key-value pair separated by a comma _,_. A key-value pair consists of a key and a value separated by a colon _:_. The keys supported in key-value pair are *build_number*, *pipeline_name*, *description*, *stage_name*
-
-### `interval`
-
-The time in seconds to wait between trying the API. The default value is 100 seconds.
-
-### `timeout`
-
-The max. time in seconds to wait until the action should fail. The default value is 3600 seconds.
+The change details to be used for identifying change request in ServiceNow instance. The change details is a JSON object surrounded by curly braces _{}_ containing key-value pair separated by a comma _,_. A key-value pair consists of a key and a value separated by a colon _:_. The keys supported in key-value pair are *build_number*, *pipeline_name*, *stage_name*
 
 ## Outputs
-No outputs produced.
+
+### `change-request-number` 
+
+*Change Request Number* found for the given change details
+
+### `status`
+
+To know the status of the Change Request GET.
 
 # Notices
 

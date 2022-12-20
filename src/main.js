@@ -38,9 +38,12 @@ const main = async() => {
 
         let buildNumber = changeDetails.build_number;
         let pipelineName = changeDetails.pipeline_name;
-        let stageName = changeDetails.stage_name;        
+        let stageName = changeDetails.stage_name;
+        
+        //Checking if any input values are empty and defaulting to the current Stage, Pipeline Name, Build Number
+        
         if(buildNumber == null || buildNumber == '')
-            buildNumber = `${githubContext.run_id}`;
+            buildNumber = `${githubContext.run_id}`+'/attempts/'+`${githubContext.run_attempt}`;
         if(pipelineName == null || pipelineName == '')
             pipelineName = `${githubContext.repository}` + '/' + `${githubContext.workflow}`;
         if(stageName == null || stageName == '')
@@ -63,6 +66,7 @@ const main = async() => {
             };
             let httpHeaders = { headers: defaultHeaders };
             response = await axios.get(restendpoint, httpHeaders);
+
             if(response.data && response.data.result){
                 status = "SUCCESS";
                 console.log("change-request-number => "+response.data.result.number);
@@ -71,12 +75,13 @@ const main = async() => {
                 status = "NOT SUCCESSFUL";
                 console.error('No response from ServiceNow. Please check ServiceNow logs for more details.');
             }
+            
         } catch (err) {
             status = "NOT SUCCESSFUL";
             if (!err.response) {
                 console.error('No response from ServiceNow. Please check ServiceNow logs for more details.');
             }else{
-
+                status = "FAILURE";
                 if (err.message.includes('ECONNREFUSED') || err.message.includes('ENOTFOUND')) {
                     console.error('Invalid ServiceNow Instance URL. Please correct the URL and try again.');
                 }
@@ -98,15 +103,14 @@ const main = async() => {
                     let errMsgSuffix = ' Please provide valid inputs.';
                     let responseData = err.response.data;
                     if (responseData && responseData.error && responseData.error.message) {
-                        errMsg = errMsg + responseData.error.message + errMsgSuffix;
-                        console.error("Inside, if, errMsg => "+errMsg);
+                        errMsg = errMsg + responseData.error.message + errMsgSuffix;                        
                     } else if (responseData && responseData.result && responseData.result.details && responseData.result.details.errors) {
                         let errors = err.response.data.result.details.errors;
                         for (var index in errors) {
                             errMsg = errMsg + errors[index].message + errMsgSuffix;
                         }
-                        console.error("Inside, else-if, errMsg => "+errMsg);
                     }
+                    console.error(errMsg);
                 }
             }
             core.setOutput("status",status);
@@ -121,7 +125,7 @@ const main = async() => {
         core.setOutput("status",status);
        core.setFailed(error.message)
    }
-    
+   core.setOutput("status",status);
 }
 
 main();

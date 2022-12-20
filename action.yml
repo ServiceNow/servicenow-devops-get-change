@@ -1,5 +1,5 @@
-name: 'Custom Action Update'
-description: 'This is a Custom Action to Update the Change Request Details'
+name: 'ServiceNow DevOps Get Change'
+description: 'This is a Custom Action to Get the Change Request Number using the Change Details'
 inputs:
   instance-url: 
     description: 'ServiceNow Instance URL'
@@ -17,7 +17,7 @@ inputs:
     description: 'Github Context'
     required: true
   change-details:
-    description: 'The customized inputs to create change with the requested details.'
+    description: 'The inputs to identify change at Servicenow and GET it.'
     required: true        
 outputs:
   change-request-number: 
