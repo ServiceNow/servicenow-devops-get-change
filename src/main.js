@@ -21,19 +21,19 @@ const main = async() => {
 
 
         if(instanceUrl == ""){
-            console.error("Please Provide a valid 'Instance Url' to proceed with Update Change Request"); 
+            console.error("Please Provide a valid 'Instance Url' to proceed with Get Change Request"); 
             return;
         }
         if(passwd == ""){
-            console.error("Please Provide a valid 'Password' to proceed with Update Change Request"); 
+            console.error("Please Provide a valid 'Password' to proceed with Get Change Request"); 
             return;
         }
         if(username == ""){
-            console.error("Please Provide a valid 'User Name' to proceed with Update Change Request"); 
+            console.error("Please Provide a valid 'User Name' to proceed with Get Change Request"); 
             return;
         }
         if(toolId == ""){
-            console.error("Please Provide a valid 'Tool ID' to proceed with Update Change Request"); 
+            console.error("Please Provide a valid 'Tool ID' to proceed with Get Change Request"); 
             return;
         }
     
@@ -118,7 +118,7 @@ const main = async() => {
                 }
                 
                 if (err.response.status == 400) {
-                    let errMsg = 'ServiceNow DevOps Update Change is not Succesful.';
+                    let errMsg = 'ServiceNow DevOps Get Change is not Succesful.';
                     let errMsgSuffix = ' Please provide valid inputs.';
                     let responseData = err.response.data;
                     if (responseData && responseData.error && responseData.error.message) {
