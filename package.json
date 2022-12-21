@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "This custom action needs to be added at step level in a job to get change-request-number from ServiceNow instance with provided change-details to identify the change-request.",
   "main": "dist/index.js",
+  "private": false,
   "scripts": {
     "build": "ncc build src/main.js"
   },
@@ -23,6 +24,8 @@
   "homepage": "https://github.com/ServiceNow/servicenow-devops-get-change#readme",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "axios": "^1.2.1"
+    "axios": "^1.2.1",
+    "follow-redirects": "^1.15.0",
+    "@vercel/ncc": "^0.34.0"
   }
 }
