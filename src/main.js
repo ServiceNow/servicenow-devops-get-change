@@ -5,10 +5,10 @@ const main = async() => {
    let status = "NOT-STARTED";
    try{
     console.log('Custom Action - GET => START');    
-    const instanceUrl = core.getInput('instance-url', { required: true });
-    const username = core.getInput('devops-integration-user-name', { required: true });
-    const passwd = core.getInput('devops-integration-user-password', { required: true });
-    const toolId = core.getInput('tool-id', { required: true });
+    const instanceUrl = core.getInput('instance-url');
+    const username = core.getInput('devops-integration-user-name');
+    const passwd = core.getInput('devops-integration-user-password');
+    const toolId = core.getInput('tool-id');
     let changeDetailsStr = core.getInput('change-details', { required: true });
     let githubContextStr = core.getInput('context-github', { required: true });
     core.setOutput("status",status);
@@ -21,19 +21,19 @@ const main = async() => {
 
 
         if(instanceUrl == ""){
-            console.error("Please Provide a valid 'Instance Url' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'instanceUrl' to proceed with Get Change Request"); 
             return;
         }
         if(passwd == ""){
-            console.error("Please Provide a valid 'Password' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'passwd' to proceed with Get Change Request"); 
             return;
         }
         if(username == ""){
-            console.error("Please Provide a valid 'User Name' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'username' to proceed with Get Change Request"); 
             return;
         }
         if(toolId == ""){
-            console.error("Please Provide a valid 'Tool ID' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'toolId' to proceed with Get Change Request"); 
             return;
         }
     
@@ -118,7 +118,7 @@ const main = async() => {
                 }
                 
                 if (err.response.status == 400) {
-                    let errMsg = 'ServiceNow DevOps Get Change is not Succesful.';
+                    let errMsg = 'ServiceNow DevOps Get Change is not Successful.';
                     let errMsgSuffix = ' Please provide valid inputs.';
                     let responseData = err.response.data;
                     if (responseData && responseData.error && responseData.error.message) {
