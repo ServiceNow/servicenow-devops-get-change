@@ -9040,19 +9040,19 @@ const main = async() => {
 
 
         if(instanceUrl == ""){
-            console.error("Please provide a valid 'instanceUrl' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'Instance Url' to proceed with Get Change Request"); 
             return;
         }
         if(passwd == ""){
-            console.error("Please provide a valid 'passwd' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'User Password' to proceed with Get Change Request"); 
             return;
         }
         if(username == ""){
-            console.error("Please provide a valid 'username' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'User Name' to proceed with Get Change Request"); 
             return;
         }
         if(toolId == ""){
-            console.error("Please provide a valid 'toolId' to proceed with Get Change Request"); 
+            console.error("Please provide a valid 'Tool Id' to proceed with Get Change Request"); 
             return;
         }
     
