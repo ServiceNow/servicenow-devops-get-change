@@ -64,17 +64,13 @@ The values for secrets should be setup in Step 1. Secrets should be created in S
 
 ### `change-details`
 
-The change details to be used for identifying change request in ServiceNow instance. The change details is a JSON object surrounded by curly braces _{}_ containing key-value pair separated by a comma _,_. A key-value pair consists of a key and a value separated by a colon _:_. The keys supported in key-value pair are *build_number*, *pipeline_name*, *stage_name*
+The change details to be used for Updating the change request information identified by the specified change request number with the name-value pairs. The change details is a JSON object surrounded by curly braces _{}_ containing key-value pair separated by a comma _,_. A key-value pair consists of a key and a value separated by a colon _:_.
 
 ## Outputs
 
-### `change-request-number` 
-
-*Change Request Number* found for the given change details
-
 ### `status`
 
-To know the status of the Change Request GET.
+To know the status of the Change Request Update.
 
 # Notices
 
