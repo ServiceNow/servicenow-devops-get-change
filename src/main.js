@@ -6,8 +6,9 @@ const main = async () => {
     try {
         console.log('Custom Action - GET => START');
         const instanceUrl = core.getInput('instance-url');
-        const username = core.getInput('devops-integration-user-name');
-        const passwd = core.getInput('devops-integration-user-password');
+        const username = core.getInput('devops-integration-user-name', { required: false });
+        const passwd = core.getInput('devops-integration-user-password', { required: false });
+        const token = core.getInput('devops-integration-token', { required: false });
         const toolId = core.getInput('tool-id');
 
         let changeDetailsStr = core.getInput('change-details', { required: true });
@@ -21,14 +22,6 @@ const main = async () => {
 
             if (instanceUrl == "") {
                 displayErrorMsg("Please provide a valid 'Instance Url' to proceed with Get Change Request");
-                return;
-            }
-            if (passwd == "") {
-                displayErrorMsg("Please provide a valid 'User Password' to proceed with Get Change Request");
-                return;
-            }
-            if (username == "") {
-                displayErrorMsg("Please provide a valid 'User Name' to proceed with Get Change Request");
                 return;
             }
             if (toolId == "") {
@@ -73,19 +66,40 @@ const main = async () => {
             console.log("buildNumber => " + buildNumber + ", pipelineName => " + pipelineName + ", stageName => " + stageName);
 
 
-            const restendpoint = `${instanceUrl}/api/sn_devops/v1/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
+            let restendpoint = '';
             let response;
+            let httpHeaders = {};
 
             try {
-                const token = `${username}:${passwd}`;
-                const encodedToken = Buffer.from(token).toString('base64');
+                if(token === '' && username === '' && passwd === '') {
+                    core.setFailed('Either secret token or integration username, password is needed for integration user authentication');
+                    return;
+                }
+                else if(token !== '') {
+                    restendpoint = `${instanceUrl}/api/sn_devops/v2/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
+                    const defaultHeadersForToken = {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'sn_devops.DevOpsToken '+`${toolId}:${token}`
+                    };
+                    httpHeaders = { headers: defaultHeadersForToken };
+                }
+                else if(username !== '' && passwd !== '') {
+                    restendpoint = `${instanceUrl}/api/sn_devops/v1/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
+                    const tokenBasicAuth = `${username}:${passwd}`;
+                    const encodedTokenForBasicAuth = Buffer.from(tokenBasicAuth).toString('base64');
 
-                const defaultHeaders = {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': 'Basic ' + `${encodedToken}`
-                };
-                let httpHeaders = { headers: defaultHeaders };
+                    const defaultHeadersForBasicAuth = {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': 'Basic ' + `${encodedTokenForBasicAuth}`
+                    };
+                    httpHeaders = { headers: defaultHeadersForBasicAuth };
+                }
+                else {
+                    core.setFailed('For Basic Auth, Username and Password is mandatory for integration user authentication');
+                    return;
+                }
                 response = await axios.get(restendpoint, httpHeaders);
 
                 if (response.data && response.data.result) {
