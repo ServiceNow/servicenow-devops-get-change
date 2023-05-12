@@ -26,7 +26,7 @@ For basic authentication , create secrets called
 Use needs to configure the identified upstream job. See [test.yml](.github/workflows/test.yml) for usage.
 
 ## Step 4: Configure the GitHub Action if need to adapt for your needs or workflows
-# For Token based Authentication which is available from v1.39.0 , at ServiceNow instance
+# For Token based Authentication which is available from v1.39.0 at ServiceNow instance
 ```yaml
 deploy:
     name: Deploy
