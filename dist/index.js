@@ -9091,7 +9091,7 @@ const main = async () => {
 
             try {
                 if(token === '' && username === '' && passwd === '') {
-                    displayErrorMsg('Either secret token or integration username, password is needed for integration user authentication');
+                    core.setFailed('Either secret token or integration username, password is needed for integration user authentication');
                     return;
                 }
                 else if(token !== '') {
@@ -9116,7 +9116,7 @@ const main = async () => {
                     httpHeaders = { headers: defaultHeadersForBasicAuth };
                 }
                 else {
-                    displayErrorMsg('For Basic Auth, Username and Password is mandatory for integration user authentication');
+                    core.setFailed('For Basic Auth, Username and Password is mandatory for integration user authentication');
                     return;
                 }
                 response = await axios.get(restendpoint, httpHeaders);
@@ -9141,7 +9141,7 @@ const main = async () => {
                     }
 
                     if (err.message.includes('401')) {
-                        displayErrorMsg('Invalid Credentials. Please correct the credentials and try again.');
+                        core.setFailed('Invalid Credentials. Please correct the credentials and try again.');
                     }
 
                     if (err.message.includes('405')) {
