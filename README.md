@@ -51,7 +51,7 @@ deploy:
     runs-on: ubuntu-latest
     steps:     
       - name: ServiceNow Get Change
-        uses: ServiceNow/servicenow-devops-get-change@v1.38
+        uses: ServiceNow/servicenow-devops-get-change@v1.39
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
