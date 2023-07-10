@@ -11,7 +11,7 @@ This custom action needs to be added at step level in a job to get change-reques
 ## Step 2: Configure Secrets in your GitHub Ogranization or GitHub repository
 On GitHub, go in your organization settings or repository settings, click on the _Secrets > Actions_ and create a new secret.
 
-For token based authentication which is available from v1.39.0, create secrets called 
+For token based authentication which is available from v2.0, create secrets called 
 - `SN_DEVOPS_INTEGRATION_TOKEN` required for token based authentication
 - `SN_INSTANCE_URL` your ServiceNow instance URL, for example **https://test.service-now.com**
 - `SN_ORCHESTRATION_TOOL_ID` only the **sys_id** is required for the GitHub tool created in your ServiceNow instance
@@ -26,7 +26,7 @@ For basic authentication , create secrets called
 Use needs to configure the identified upstream job. See [test.yml](.github/workflows/test.yml) for usage.
 
 ## Step 4: Configure the GitHub Action if need to adapt for your needs or workflows
-# For Token based Authentication which is available from v1.39.0 at ServiceNow instance
+# For Token based Authentication which is available from 2.0 at ServiceNow instance
 ```yaml
 deploy:
     name: Deploy
@@ -34,7 +34,7 @@ deploy:
     runs-on: ubuntu-latest
     steps:     
       - name: ServiceNow Get Change
-        uses: ServiceNow/servicenow-devops-get-change@v1.39
+        uses: ServiceNow/servicenow-devops-get-change@v2.0
         with:
           devops-integration-token: ${{ secrets.SN_DEVOPS_INTEGRATION_TOKEN }}
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
@@ -51,7 +51,7 @@ deploy:
     runs-on: ubuntu-latest
     steps:     
       - name: ServiceNow Get Change
-        uses: ServiceNow/servicenow-devops-get-change@v1.39
+        uses: ServiceNow/servicenow-devops-get-change@v2.0
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
           devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
