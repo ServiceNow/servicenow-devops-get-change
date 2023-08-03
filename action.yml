@@ -26,7 +26,10 @@ outputs:
   change-request-number: 
     description: 'Change Request Number found for the given change details'
   status: 
-    description: 'To know the status of the Change Request GET call'    
+    description: 'To know the status of the Change Request GET call'
+branding:
+  icon: 'refresh-ccw'
+  color: 'green'
 runs:
   using: 'node16'
   main: 'dist/index.js'
