@@ -33,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Servicenow Get Change Details
-        uses: ServiceNow/servicenow-devops-get-change@2.0
+        uses: ServiceNow/servicenow-devops-get-change@2.0.0
         id: get
         with:
           devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
