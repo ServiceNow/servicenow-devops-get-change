@@ -71,20 +71,20 @@ const main = async () => {
             let httpHeaders = {};
 
             try {
-                if(token === '' && username === '' && passwd === '') {
+                if (token === '' && username === '' && passwd === '') {
                     core.setFailed('Either secret token or integration username, password is needed for integration user authentication');
                     return;
                 }
-                else if(token !== '') {
+                else if (token !== '') {
                     restendpoint = `${instanceUrl}/api/sn_devops/v2/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
                     const defaultHeadersForToken = {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
-                        'Authorization': 'sn_devops.DevOpsToken '+`${toolId}:${token}`
+                        'Authorization': 'sn_devops.DevOpsToken ' + `${toolId}:${token}`
                     };
                     httpHeaders = { headers: defaultHeadersForToken };
                 }
-                else if(username !== '' && passwd !== '') {
+                else if (username !== '' && passwd !== '') {
                     restendpoint = `${instanceUrl}/api/sn_devops/v1/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
                     const tokenBasicAuth = `${username}:${passwd}`;
                     const encodedTokenForBasicAuth = Buffer.from(tokenBasicAuth).toString('base64');
@@ -161,13 +161,14 @@ const main = async () => {
 
     } catch (error) {
         core.setOutput("status", status);
-        core.setFailed(error.message)
+        core.setFailed(error.message);
     }
     core.setOutput("status", status);
 }
 function displayErrorMsg(errMsg) {
 
     console.error('\n\x1b[31m' + errMsg + '\x1b[31m');
+    core.setFailed(errMsg);
 }
 
 main();
