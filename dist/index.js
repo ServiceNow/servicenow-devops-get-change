@@ -160,9 +160,9 @@ const main = async () => {
                     core.setFailed('For Basic Auth, Username and Password is mandatory for integration user authentication');
                     return;
                 }
-                core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request Header :"+JSON.stringify(httpHeaders));
+                core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request Header :"+JSON.stringify(httpHeaders)+"\n");
                 response = await axios.get(restendpoint, httpHeaders);
-                core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+snowResponse);
+                core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+snowResponse+"\n");
 
                 if (response.data && response.data.result) {
                     status = "SUCCESS";
