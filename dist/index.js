@@ -9121,7 +9121,7 @@ const main = async () => {
                 }
                 core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request Header :"+JSON.stringify(httpHeaders)+"\n");
                 response = await axios.get(restendpoint, httpHeaders);
-                core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+snowResponse+"\n");
+                core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+response+"\n");
 
                 if (response.data && response.data.result) {
                     status = "SUCCESS";
