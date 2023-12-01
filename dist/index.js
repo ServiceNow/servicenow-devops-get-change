@@ -9020,6 +9020,20 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const axios = __nccwpck_require__(8757);
 
+function circularSafeStringify(obj) {
+    const seen = new WeakSet();
+    return JSON.stringify(obj, (key, value) => {
+      if (key === '_sessionCache') return undefined;
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return '[Circular]';
+        }
+        seen.add(value);
+      }
+      return value;
+    });
+}
+
 const main = async () => {
     let status = "NOT-STARTED";
     try {
@@ -9121,7 +9135,7 @@ const main = async () => {
                 }
                 core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request Header :"+JSON.stringify(httpHeaders)+"\n");
                 response = await axios.get(restendpoint, httpHeaders);
-                core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+response+"\n");
+                core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+circularSafeStringify(response)+"\n");
 
                 if (response.data && response.data.result) {
                     status = "SUCCESS";
