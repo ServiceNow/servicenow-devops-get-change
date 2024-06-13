@@ -9083,6 +9083,7 @@ const main = async () => {
             let buildNumber = changeDetails.build_number;
             let pipelineName = changeDetails.pipeline_name;
             let stageName = changeDetails.stage_name;
+            let attemptNumber = changeDetails.attempt_number;
 
             //Checking if any input values are empty and defaulting to the current Stage, Pipeline Name, Build Number
 
@@ -9096,7 +9097,7 @@ const main = async () => {
             if (stageName == null || stageName == '')
                 stageName = `${githubContext.job}`;
 
-            console.log("buildNumber => " + buildNumber + ", pipelineName => " + pipelineName + ", stageName => " + stageName);
+            console.log("buildNumber => " + buildNumber + ", pipelineName => " + pipelineName + ", stageName => " + stageName + ", attemptNumber => " + attemptNumber);
 
 
             let restendpoint = '';
@@ -9109,7 +9110,7 @@ const main = async () => {
                     return;
                 }
                 else if (token !== '') {
-                    restendpoint = `${instanceUrl}/api/sn_devops/v2/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
+                    restendpoint = `${instanceUrl}/api/sn_devops/v2/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&attemptNumber=${attemptNumber}&toolId=${toolId}`;
                     const defaultHeadersForToken = {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json',
@@ -9118,7 +9119,7 @@ const main = async () => {
                     httpHeaders = { headers: defaultHeadersForToken };
                 }
                 else if (username !== '' && passwd !== '') {
-                    restendpoint = `${instanceUrl}/api/sn_devops/v1/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&toolId=${toolId}`;
+                    restendpoint = `${instanceUrl}/api/sn_devops/v1/devops/orchestration/changeInfo?buildNumber=${buildNumber}&stageName=${stageName}&pipelineName=${pipelineName}&attemptNumber=${attemptNumber}&toolId=${toolId}`;
                     const tokenBasicAuth = `${username}:${passwd}`;
                     const encodedTokenForBasicAuth = Buffer.from(tokenBasicAuth).toString('base64');
 
@@ -9207,6 +9208,7 @@ function displayErrorMsg(errMsg) {
 }
 
 main();
+
 })();
 
 module.exports = __webpack_exports__;
