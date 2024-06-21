@@ -77,6 +77,8 @@ const main = async () => {
                 pipelineName = `${githubContext.repository}` + '/' + `${githubContext.workflow}`;
             if (stageName == null || stageName == '')
                 stageName = `${githubContext.job}`;
+            if (attemptNumber == null || attemptNumber == '')
+                attemptNumber = `${githubContext.run_attempt}`;
 
             console.log("buildNumber => " + buildNumber + ", pipelineName => " + pipelineName + ", stageName => " + stageName + ", attemptNumber => " + attemptNumber);
 
