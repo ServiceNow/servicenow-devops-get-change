@@ -40,7 +40,7 @@ deploy:
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
-          change-details: '{"build_number":"21","pipeline_name":"CI_Pipeline","stage_name":"Create_Change"}'
+          change-details: '{"build_number":"21","pipeline_name":"CI_Pipeline","stage_name":"Create_Change","attempt_number":"1"}'
 ```
 # For Basic Authentication at ServiceNow instance
 ```yaml
@@ -57,7 +57,7 @@ deploy:
           instance-url: ${{ secrets.SN_INSTANCE_URL }}
           tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
           context-github: ${{ toJSON(github) }}
-          change-details: '{"build_number":"21","pipeline_name":"CI_Pipeline","stage_name":"Create_Change"}'
+          change-details: '{"build_number":"21","pipeline_name":"CI_Pipeline","stage_name":"Create_Change","attempt_number":"1"}'
 ```
 The values for secrets should be setup in Step 1. Secrets should be created in Step 2.
 
