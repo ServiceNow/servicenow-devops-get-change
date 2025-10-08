@@ -4953,7 +4953,7 @@ FormData.prototype._generateBoundary = function() {
   // They are optimized for boyer-moore parsing.
   var boundary = '--------------------------';
   for (var i = 0; i < 24; i++) {
-    boundary += Math.floor(Math.random() * 10).toString(16);
+    boundary += Math.floor(crypto.randomUUID() * 10).toString(16);
   }
 
   this._boundary = boundary;
@@ -6529,7 +6529,7 @@ const generateString = (size = 16, alphabet = ALPHABET.ALPHA_DIGIT) => {
   let str = '';
   const {length} = alphabet;
   while (size--) {
-    str += alphabet[Math.random() * length|0];
+    str += alphabet[crypto.randomUUID() * length|0];
   }
 
   return str;
@@ -6601,7 +6601,7 @@ const _setImmediate = ((setImmediateSupported, postMessageSupported) => {
       callbacks.push(cb);
       _global.postMessage(token, "*");
     }
-  })(`axios@${Math.random()}`, []) : (cb) => setTimeout(cb);
+  })(`axios@${crypto.randomUUID()}`, []) : (cb) => setTimeout(cb);
 })(
   typeof setImmediate === 'function',
   isFunction(_global.postMessage)
