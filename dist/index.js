@@ -10804,6 +10804,7 @@ const main = async () => {
                     return;
                 }
                 core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request Header :"+JSON.stringify(httpHeaders)+"\n");
+                core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request URL :"+restendpoint+"\n");
                 response = await axios.get(restendpoint, httpHeaders);
                 core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+circularSafeStringify(response)+"\n");
 
