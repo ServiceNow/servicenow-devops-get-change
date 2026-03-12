@@ -10750,8 +10750,8 @@ const main = async () => {
             }
 
             let buildNumber = changeDetails.build_number;
-            let pipelineName = changeDetails.pipeline_name;
-            let stageName = changeDetails.stage_name;
+            let pipelineName = encodeURIComponent(changeDetails.pipeline_name);
+            let stageName = encodeURIComponent(changeDetails.stage_name);
             let attemptNumber = changeDetails.attempt_number;
 
             //Checking if any input values are empty and defaulting to the current Stage, Pipeline Name, Build Number
