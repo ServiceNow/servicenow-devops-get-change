@@ -1,5 +1,18 @@
 const core = require('@actions/core');
 const axios = require('axios');
+const { HttpsProxyAgent } = require('https-proxy-agent');
+
+function createHttpClient() {
+    const proxyUrl = process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY || process.env.http_proxy;
+    const config = {};
+    if (proxyUrl) {
+        config.httpsAgent = new HttpsProxyAgent(proxyUrl);
+        config.proxy = false;
+    }
+    return axios.create(config);
+}
+
+const httpClient = createHttpClient();
 
 function circularSafeStringify(obj) {
     const seen = new WeakSet();
@@ -116,7 +129,7 @@ const main = async () => {
                     return;
                 }
                 core.debug("[ServiceNow DevOps], Sending Request for Get Change, Request Header :"+JSON.stringify(httpHeaders)+"\n");
-                response = await axios.get(restendpoint, httpHeaders);
+                response = await httpClient.get(restendpoint, httpHeaders);
                 core.debug("[ServiceNow DevOps], Receiving response for Get Change, Response :"+circularSafeStringify(response)+"\n");
 
                 if (response.data && response.data.result) {
