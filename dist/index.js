@@ -35819,8 +35819,8 @@ const main = async () => {
             }
 
             let buildNumber = changeDetails.build_number;
-            let pipelineName = encodeURIComponent(changeDetails.pipeline_name);
-            let stageName = encodeURIComponent(changeDetails.stage_name);
+            let pipelineName = changeDetails.pipeline_name;
+            let stageName = changeDetails.stage_name;
             let attemptNumber = changeDetails.attempt_number;
 
             //Checking if any input values are empty and defaulting to the current Stage, Pipeline Name, Build Number
@@ -35834,6 +35834,9 @@ const main = async () => {
                 pipelineName = `${githubContext.repository}` + '/' + `${githubContext.workflow}`;
             if (stageName == null || stageName == '')
                 stageName = `${githubContext.job}`;
+
+            pipelineName = encodeURIComponent(pipelineName);
+            stageName = encodeURIComponent(stageName);
 
             console.log("buildNumber => " + buildNumber + ", pipelineName => " + pipelineName + ", stageName => " + stageName + ", attemptNumber => " + attemptNumber);
 
