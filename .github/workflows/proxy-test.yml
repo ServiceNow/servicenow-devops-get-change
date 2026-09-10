@@ -1,0 +1,40 @@
+# Example: ServiceNow DevOps Get Change with HTTPS Proxy Support
+#
+# This workflow demonstrates how to route the ServiceNow DevOps Get Change action
+# through a corporate HTTPS proxy. The action reads the HTTPS_PROXY environment
+# variable and tunnels all requests via HTTP CONNECT.
+#
+# Required secrets:
+#   HTTPS_PROXY_URL           - Proxy URL, e.g. http://<host>:<port> or http://user:pass@<host>:<port>
+#   SN_INSTANCE_URL           - ServiceNow instance URL
+#   SN_DEVOPS_INTEGRATION_TOKEN - DevOps integration token
+#   SN_ORCHESTRATION_TOOL_ID  - Orchestration tool sys_id
+
+name: Proxy Test - DevOps Get Change
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  getChange:
+    name: ServiceNow Get Change
+    runs-on: ubuntu-latest
+
+    # Set HTTPS_PROXY so the action routes traffic through your proxy
+    env:
+      HTTPS_PROXY: ${{ secrets.HTTPS_PROXY_URL }}
+
+    steps:
+      - name: ServiceNow Get Change
+        uses: ServiceNow/servicenow-devops-get-change@feature/https-proxy-agent
+        id: get
+        with:
+          devops-integration-token: ${{ secrets.SN_DEVOPS_INTEGRATION_TOKEN }}
+          instance-url: ${{ secrets.SN_INSTANCE_URL }}
+          tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+          context-github: ${{ toJSON(github) }}
+          change-details: '{"build_number":"${{ github.run_id }}","pipeline_name":"${{ github.repository }}/${{ github.workflow }}","stage_name":"ServiceNow Get Change"}'
+
+      - name: Output
+        run: echo "change-request-number=${{ steps.get.outputs.change-request-number }} status=${{ steps.get.outputs.status }}"
